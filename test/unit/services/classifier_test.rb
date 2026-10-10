@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative '../test_helper'
+require 'test_helper'
 
 class ClassifierTest < Minitest::Test
   def setup
-    @classifier = SalesTax::Classifier.new
+    @classifier = SalesTax::Services::Classifier.new
   end
 
   def test_imported

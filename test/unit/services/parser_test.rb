@@ -1,10 +1,10 @@
 # frozen_string_literal: true
 
-require_relative '../test_helper'
+require 'test_helper'
 
 class ParserTest < Minitest::Test
   def setup
-    @parser = SalesTax::Parser.new
+    @parser = SalesTax::Services::Parser.new
   end
 
   def test_parses_a_line

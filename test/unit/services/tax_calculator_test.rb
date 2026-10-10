@@ -1,12 +1,12 @@
 # frozen_string_literal: true
 
-require_relative '../test_helper'
+require 'test_helper'
 
 class TaxCalculatorTest < Minitest::Test
   include TestSupport
 
   def setup
-    @tax_calculator = SalesTax::TaxCalculator.new
+    @tax_calculator = SalesTax::Services::TaxCalculator.new
   end
 
   def test_exempt_product_has_no_tax

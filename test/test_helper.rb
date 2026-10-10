@@ -13,6 +13,6 @@ module TestSupport
   def data_file(file_name) = File.join(DATA_DIR, file_name)
 
   def build_item(name:, unit_price:, quantity: 1, imported: false, exempt: false)
-    SalesTax::Item.new(quantity:, name:, unit_price: BigDecimal(unit_price), imported:, exempt:)
+    SalesTax::Models::Item.new(quantity:, name:, unit_price: BigDecimal(unit_price), imported:, exempt:)
   end
 end

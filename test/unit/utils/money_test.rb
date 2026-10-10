@@ -1,9 +1,9 @@
 # frozen_string_literal: true
 
-require_relative '../test_helper'
+require 'test_helper'
 
 class MoneyTest < Minitest::Test
-  def round(unrounded_tax_text) = SalesTax::Money.round_up_to_nickel(BigDecimal(unrounded_tax_text))
+  def round(unrounded_tax_text) = SalesTax::Utils::Money.round_up_to_nickel(BigDecimal(unrounded_tax_text))
 
   def test_rounds_up_to_next_nickel
     assert_equal BigDecimal('1.50'), round('1.499')
@@ -17,8 +17,8 @@ class MoneyTest < Minitest::Test
   end
 
   def test_formats_with_two_decimals
-    assert_equal '1.50', SalesTax::Money.format(BigDecimal('1.5'))
-    assert_equal '10.00', SalesTax::Money.format(BigDecimal('10'))
-    assert_equal '98.38', SalesTax::Money.format(BigDecimal('98.38'))
+    assert_equal '1.50', SalesTax::Utils::Money.format(BigDecimal('1.5'))
+    assert_equal '10.00', SalesTax::Utils::Money.format(BigDecimal('10'))
+    assert_equal '98.38', SalesTax::Utils::Money.format(BigDecimal('98.38'))
   end
 end

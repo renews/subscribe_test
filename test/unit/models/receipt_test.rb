@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../test_helper'
+require 'test_helper'
 
 class ReceiptTest < Minitest::Test
   include TestSupport
@@ -10,7 +10,7 @@ class ReceiptTest < Minitest::Test
       build_item(name: 'book', unit_price: '12.49', quantity: 2, exempt: true),
       build_item(name: 'music CD', unit_price: '14.99')
     ]
-    receipt = SalesTax::Receipt.new(basket_items)
+    receipt = SalesTax::Models::Receipt.new(basket_items)
 
     assert_equal BigDecimal('1.50'), receipt.sales_taxes
     assert_equal BigDecimal('41.47'), receipt.total
@@ -18,6 +18,6 @@ class ReceiptTest < Minitest::Test
   end
 
   def test_empty_receipt_has_zero_totals
-    assert_equal "Sales Taxes: 0.00\nTotal: 0.00", SalesTax::Receipt.new([]).to_s
+    assert_equal "Sales Taxes: 0.00\nTotal: 0.00", SalesTax::Models::Receipt.new([]).to_s
   end
 end

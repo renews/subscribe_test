@@ -98,10 +98,31 @@ Sales Taxes: 7.90
 Total: 98.38
 ```
 
+## Project structure
+
+```text
+bin/sales_tax                      executable
+lib/sales_tax.rb                   entry point, loads everything
+lib/sales_tax/cli.rb               reads files or STDIN and prints the receipts
+lib/sales_tax/models/
+  item.rb                          a basket line (quantity, name, price, imported, exempt)
+  receipt.rb                       receipt lines, sales taxes and total
+lib/sales_tax/services/
+  parser.rb                        turns the input text into items
+  classifier.rb                    detects imported and exempt products
+  tax_calculator.rb                tax rates and rounding
+lib/sales_tax/utils/
+  money.rb                         rounding to 0.05 and price formatting
+test/unit/                         one test file per class, same folders as lib/
+test/integration/                  runs bin/sales_tax against data/
+data/                              inputs and expected outputs from the problem
+```
+
 ## Tests
 
 ```sh
 bundle exec rake test
+bundle exec ruby -Itest test/unit/services/parser_test.rb
 ```
 
 `test/integration/supplied_baskets_test.rb` runs the program against the three
@@ -112,7 +133,7 @@ inputs in `data/` and compares the result with the expected outputs.
 - Each line follows the format `<quantity> <name> at <price>`.
 - Books, food and medical products are identified by name (`book`,
   `chocolate`, `pill`). To support more products, add them to
-  `Classifier::EXEMPT_PRODUCT_PATTERN`.
+  `Services::Classifier::EXEMPT_PRODUCT_PATTERN`.
 - Tax is rounded per unit and then multiplied by the quantity, which is what
   the expected output for `3 imported boxes of chocolates` requires.
 - Prices are handled with `BigDecimal` to avoid floating point errors.

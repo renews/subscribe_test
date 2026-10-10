@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require_relative '../test_helper'
+require 'test_helper'
 require 'open3'
 
 class SuppliedBasketsTest < Minitest::Test
