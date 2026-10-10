@@ -34,4 +34,12 @@ class SuppliedBasketsTest < Minitest::Test
     output, = run_executable(stdin_text: File.read(data_file('input2.txt')))
     assert_equal expected_output(2), output
   end
+
+  def test_rejects_defective_basket_without_printing_a_receipt
+    output, errors, status = run_executable(data_file('input_4.txt'))
+
+    assert_equal 1, status.exitstatus
+    assert_empty output
+    assert_equal "Error: invalid item on line 2: \"1 packet of headache pills at 9,75\"\n", errors
+  end
 end

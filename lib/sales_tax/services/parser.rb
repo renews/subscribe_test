@@ -21,7 +21,7 @@ module SalesTax
 
       def parse_line(basket_line, line_number = 1)
         case LINE_PATTERN.match(basket_line)
-        in { quantity: quantity_text, name: product_name, price: price_text } if quantity_text.to_i.positive?
+        in { quantity: quantity_text, name: product_name, price: price_text } if quantity_text.to_i.positive? && !product_name.strip.empty?
           Models::Item.new(
             quantity: quantity_text.to_i,
             name: product_name,

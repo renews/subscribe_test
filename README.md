@@ -127,10 +127,15 @@ bundle exec ruby -Itest test/unit/services/parser_test.rb
 
 `test/integration/supplied_baskets_test.rb` runs the program against the three
 inputs in `data/` and compares the result with the expected outputs.
+It also checks that `data/input_4.txt` is rejected on line 2 because `9,75`
+uses a comma. Parser tests separately cover its valid uppercase product names
+and the blank product name on line 4, which the whole file check never reaches.
 
 ## Assumptions
 
 - Each line follows the format `<quantity> <name> at <price>`.
+- Product names cannot be blank or contain only whitespace.
+- Prices use a decimal point, with at most two decimal places.
 - Books, food and medical products are identified by name (`book`,
   `chocolate`, `pill`). To support more products, add them to
   `Services::Classifier::EXEMPT_PRODUCT_PATTERN`.
@@ -138,5 +143,3 @@ inputs in `data/` and compares the result with the expected outputs.
   the expected output for `3 imported boxes of chocolates` requires.
 - Prices are handled with `BigDecimal` to avoid floating point errors.
 - Invalid lines stop the program with an error message showing the line number.
-
-
