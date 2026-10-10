@@ -2,8 +2,6 @@
 
 module SalesTax
   class CLI
-    USAGE = 'Usage: bin/sales_tax [basket_file ...]   (reads from STDIN when no file is given)'
-
     def initialize(input_stream: $stdin, output_stream: $stdout, error_stream: $stderr)
       @input_stream = input_stream
       @output_stream = output_stream
@@ -11,13 +9,10 @@ module SalesTax
     end
 
     def run(command_line_arguments)
-      case command_line_arguments
-      in [*, '-h' | '--help', *]
-        @output_stream.puts USAGE
-      in []
+      if command_line_arguments.empty?
         @output_stream.puts SalesTax.receipt_for(@input_stream.read)
-      in [*basket_file_paths]
-        @output_stream.puts receipts_for_files(basket_file_paths)
+      else
+        @output_stream.puts receipts_for_files(command_line_arguments)
       end
       0
     rescue ParseError, SystemCallError => error

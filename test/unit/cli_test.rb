@@ -27,12 +27,6 @@ class CLITest < Minitest::Test
     assert_match(/\n\nOutput 2:\n1 imported box of chocolates: 10\.50/, output)
   end
 
-  def test_help
-    exit_status, output, = run_cli(['--help'])
-    assert_equal 0, exit_status
-    assert_match(/Usage/, output)
-  end
-
   def test_missing_file
     exit_status, _output, errors = run_cli(['missing.txt'])
     assert_equal 1, exit_status
