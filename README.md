@@ -131,6 +131,21 @@ It also checks that `data/input_4.txt` is rejected on line 2 because `9,75`
 uses a comma. Parser tests separately cover its valid uppercase product names
 and the blank product name on line 4, which the whole file check never reaches.
 
+## Thread safety
+
+I made each `Item` copy and freeze its product name, and each `Receipt` copy
+and freeze its list of items. This lets me edit the original name or list
+without changing an existing receipt.
+
+In the classifier and tax calculator I kept no changing state between calls.
+
+Once a receipt is constructed from `Item` objects, multiple threads can read it
+using the built-in calculator. Each call calculates its own result from the same
+protected values.
+
+The CLI is intended for one run at a time, concurrent callers must use separate
+inputs.
+
 ## Assumptions
 
 - Each line follows the format `<quantity> <name> at <price>`.

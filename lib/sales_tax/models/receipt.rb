@@ -4,7 +4,7 @@ module SalesTax
   module Models
     class Receipt
       def initialize(basket_items, tax_calculator: Services::TaxCalculator.new)
-        @basket_items = basket_items
+        @basket_items = basket_items.dup.freeze
         @tax_calculator = tax_calculator
       end
 
