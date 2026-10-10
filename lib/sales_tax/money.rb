@@ -5,10 +5,10 @@ module SalesTax
     ZERO = BigDecimal('0')
     ROUNDING_STEP = BigDecimal('0.05')
 
-    module_function
+    class << self
+      def round_up_to_nickel(unrounded_tax) = (unrounded_tax / ROUNDING_STEP).ceil * ROUNDING_STEP
 
-    def round_up_to_nickel(unrounded_tax) = (unrounded_tax / ROUNDING_STEP).ceil * ROUNDING_STEP
-
-    def format(amount) = Kernel.format('%.2f', amount)
+      def format(amount) = Kernel.format('%.2f', amount)
+    end
   end
 end
